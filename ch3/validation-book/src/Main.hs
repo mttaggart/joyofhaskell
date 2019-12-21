@@ -3,7 +3,7 @@ import Data.Char
 
 checkPasswordLength :: String -> Maybe String
 checkPasswordLength p =
-  case (length p > 20) of
+  case (length p > 20 || length p < 10) of
     True -> Nothing
     False -> Just p
 
