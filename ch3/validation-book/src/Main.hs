@@ -35,8 +35,20 @@ requireAlphaNum pw =
     False -> Nothing
     True  -> Just pw
 
+validatePassword :: String -> Maybe String
+validatePassword pw = 
+  case (cleanWhitespace pw) of
+    Nothing -> Nothing
+    Just pw2 ->
+      case (requireAlphaNum pw2) of
+        Nothing -> Nothing
+        Just pw3 ->
+          case (checkPasswordLength pw3) of
+            Nothing -> Nothing
+            Just pw4 -> Just pw4
+
 main :: IO ()
 main = do
   putStrLn "Please enter a password"
   password <- getLine
-  print (checkPasswordLength $ cleanWhitespace $ requireAlphaNum password)
+  print (validatePassword password)
